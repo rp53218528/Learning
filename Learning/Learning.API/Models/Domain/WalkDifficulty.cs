@@ -1,4 +1,4 @@
-﻿namespace Learning.API.Models
+﻿namespace Learning.API.Models.Domain
 {
     public class WalkDifficulty
     {

@@ -1,5 +1,5 @@
 ﻿
-using Learning.API.Models;
+using Learning.API.Models.Domain;
 using Microsoft.EntityFrameworkCore;
 
 namespace Learning.API.Data

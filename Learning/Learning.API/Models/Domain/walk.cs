@@ -1,4 +1,4 @@
-﻿namespace Learning.API.Models
+﻿namespace Learning.API.Models.Domain
 {
     public class walk
     {
@@ -11,5 +11,6 @@
         //Navigation Property
         public Region Region { get; set; }
         public WalkDifficulty WalkDifficulty { get; set; }
+
     }
 }

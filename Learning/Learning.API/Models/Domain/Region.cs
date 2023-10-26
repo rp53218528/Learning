@@ -1,4 +1,4 @@
-﻿namespace Learning.API.Models
+﻿namespace Learning.API.Models.Domain
 {
     public class Region
     {
@@ -13,5 +13,6 @@
 
         //Navigation Property
         public IEnumerable<walk> Walks { get; set; }
+
     }
 }
