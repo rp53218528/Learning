@@ -1,10 +1,6 @@
 ﻿using AutoMapper;
-using Learning.API.Data;
-using Learning.API.Models.Domain;
-using Learning.API.Models.DTO;
 using Learning.API.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Learning.API.Controllers
 {
@@ -67,6 +63,12 @@ namespace Learning.API.Controllers
         [HttpPost]
         public async Task<IActionResult> AddRegionAsync(Models.DTO.AddRegionRequest addRegionRequest)
         {
+            //Validate The Request
+            if (!ValidateAddRegionAsync(addRegionRequest))
+            {
+                return BadRequest(ModelState);
+            }
+
             //Request(DTO) to Domain model 
             var region = new Models.Domain.Region()
             {
@@ -126,6 +128,12 @@ namespace Learning.API.Controllers
         [Route("{id:guid}")]
         public async Task<IActionResult> UpdateRegionAsync([FromBody] Models.DTO.UpdateRegionRequest updateRegionRequest, [FromRoute] Guid id)
         {
+            //Vaidate the incoming request
+            if (!ValidateUpdateRegionAsync(updateRegionRequest))
+            {
+                return BadRequest(ModelState);
+            }
+
             //convert DTo to domain model
             var region = new Models.Domain.Region()
             {
@@ -159,5 +167,93 @@ namespace Learning.API.Controllers
             //Return Ok response
             return Ok(regionDto);
         }
+
+        #region Private Method
+        private bool ValidateAddRegionAsync(Models.DTO.AddRegionRequest addRegionRequest)
+        {
+            if(addRegionRequest == null)
+            {
+                ModelState.AddModelError(nameof(addRegionRequest),
+                   "Add region data is Required.");
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(addRegionRequest.Code))
+            {
+                ModelState.AddModelError(nameof(addRegionRequest.Code),
+                    $"{nameof(addRegionRequest.Code)} cannot be null or empty or white space.");
+            }
+            if (string.IsNullOrWhiteSpace(addRegionRequest.Name))
+            {
+                ModelState.AddModelError(nameof(addRegionRequest.Name),
+                    $"{nameof(addRegionRequest.Code)} cannot be null or empty or white space.");
+            }
+            if(addRegionRequest.Area <= 0)
+            {
+                ModelState.AddModelError(nameof(addRegionRequest.Area),
+                    $"{nameof(addRegionRequest.Code)} cannot be less than or qual to zero.");
+            }
+            if (addRegionRequest.Lat <= 0)
+            {
+                ModelState.AddModelError(nameof(addRegionRequest.Lat),
+                    $"{nameof(addRegionRequest.Code)} cannot be less than or qual to zero.");
+            }
+            if (addRegionRequest.Long <= 0)
+            {
+                ModelState.AddModelError(nameof(addRegionRequest.Long),
+                    $"{nameof(addRegionRequest.Code)} cannot be less than or qual to zero.");
+            }
+            if (addRegionRequest.Population < 0)
+            {
+                ModelState.AddModelError(nameof(addRegionRequest.Population),
+                    $"{nameof(addRegionRequest.Code)} cannot be less than zero.");
+            }
+
+            if(ModelState.ErrorCount > 0)
+            {
+                return false;
+            }
+            return true;
+        }
+       
+        private bool ValidateUpdateRegionAsync(Models.DTO.UpdateRegionRequest updateRegionRequest)
+        {
+            if (updateRegionRequest == null)
+            {
+                ModelState.AddModelError(nameof(updateRegionRequest),
+                   "Add region data is Required.");
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(updateRegionRequest.Code))
+            {
+                ModelState.AddModelError(nameof(updateRegionRequest.Code),
+                    $"{nameof(updateRegionRequest.Code)} cannot be null or empty or white space.");
+            }
+            if (string.IsNullOrWhiteSpace(updateRegionRequest.Name))
+            {
+                ModelState.AddModelError(nameof(updateRegionRequest.Name),
+                    $"{nameof(updateRegionRequest.Code)} cannot be null or empty or white space.");
+            }
+            if (updateRegionRequest.Area <= 0)
+            {
+                ModelState.AddModelError(nameof(updateRegionRequest.Area),
+                    $"{nameof(updateRegionRequest.Code)} cannot be less than or qual to zero.");
+            }
+            if (updateRegionRequest.Population < 0)
+            {
+                ModelState.AddModelError(nameof(updateRegionRequest.Population),
+                    $"{nameof(updateRegionRequest.Code)} cannot be less than zero.");
+            }
+
+            if (ModelState.ErrorCount > 0)
+            {
+                return false;
+            }
+            return true;
+        }
+        #endregion
     }
+
+
 }
