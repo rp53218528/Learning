@@ -1,3 +1,4 @@
+using FluentValidation.AspNetCore;
 using Learning.API.Data;
 using Learning.API.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,10 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+//fluentValidation
+builder.Services.
+    AddFluentValidation(options => options.RegisterValidatorsFromAssemblyContaining<Program>());
 
 builder.Services.AddScoped<IRegionRepository, RegionRepository>();
 builder.Services.AddScoped<IWalkRepository, WalkRepository>();

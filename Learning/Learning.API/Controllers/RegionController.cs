@@ -64,10 +64,11 @@ namespace Learning.API.Controllers
         public async Task<IActionResult> AddRegionAsync(Models.DTO.AddRegionRequest addRegionRequest)
         {
             //Validate The Request
-            if (!ValidateAddRegionAsync(addRegionRequest))
-            {
-                return BadRequest(ModelState);
-            }
+            //if (!ValidateAddRegionAsync(addRegionRequest))
+            //{
+            //    return BadRequest(ModelState);
+            //}
+
 
             //Request(DTO) to Domain model 
             var region = new Models.Domain.Region()
@@ -129,10 +130,10 @@ namespace Learning.API.Controllers
         public async Task<IActionResult> UpdateRegionAsync([FromBody] Models.DTO.UpdateRegionRequest updateRegionRequest, [FromRoute] Guid id)
         {
             //Vaidate the incoming request
-            if (!ValidateUpdateRegionAsync(updateRegionRequest))
-            {
-                return BadRequest(ModelState);
-            }
+            //if (!ValidateUpdateRegionAsync(updateRegionRequest))
+            //{
+            //    return BadRequest(ModelState);
+            //}
 
             //convert DTo to domain model
             var region = new Models.Domain.Region()
@@ -193,16 +194,16 @@ namespace Learning.API.Controllers
                 ModelState.AddModelError(nameof(addRegionRequest.Area),
                     $"{nameof(addRegionRequest.Code)} cannot be less than or qual to zero.");
             }
-            if (addRegionRequest.Lat <= 0)
-            {
-                ModelState.AddModelError(nameof(addRegionRequest.Lat),
-                    $"{nameof(addRegionRequest.Code)} cannot be less than or qual to zero.");
-            }
-            if (addRegionRequest.Long <= 0)
-            {
-                ModelState.AddModelError(nameof(addRegionRequest.Long),
-                    $"{nameof(addRegionRequest.Code)} cannot be less than or qual to zero.");
-            }
+            //if (addRegionRequest.Lat <= 0)
+            //{
+            //    ModelState.AddModelError(nameof(addRegionRequest.Lat),
+            //        $"{nameof(addRegionRequest.Code)} cannot be less than or qual to zero.");
+            //}
+            //if (addRegionRequest.Long <= 0)
+            //{
+            //    ModelState.AddModelError(nameof(addRegionRequest.Long),
+            //        $"{nameof(addRegionRequest.Code)} cannot be less than or qual to zero.");
+            //}
             if (addRegionRequest.Population < 0)
             {
                 ModelState.AddModelError(nameof(addRegionRequest.Population),

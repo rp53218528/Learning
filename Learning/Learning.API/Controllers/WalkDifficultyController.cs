@@ -45,10 +45,10 @@ namespace Learning.API.Controllers
         public async Task<IActionResult> AddWalkDifficultyAsync(Models.DTO.AddWalkDifficultyRequest addWalkDifficultyRequest)
         {
             //validate
-            if (!ValidateAddWalkDifficultyAsync(addWalkDifficultyRequest))
-            {
-                return BadRequest(ModelState);
-            }
+            //if (!ValidateAddWalkDifficultyAsync(addWalkDifficultyRequest))
+            //{
+            //    return BadRequest(ModelState);
+            //}
 
             //convert dto to domain model
             var walkDifficultyDomain = new Models.Domain.WalkDifficulty
@@ -71,10 +71,10 @@ namespace Learning.API.Controllers
             Models.DTO.UpdateWalkDifficultyRequest updateWalkDifficultyRequest)
         {
             //validate
-            if (!ValidateUpdateWalkDifficultyAsync(updateWalkDifficultyRequest))
-            {
-                return BadRequest(ModelState);
-            }
+            //if (!ValidateUpdateWalkDifficultyAsync(updateWalkDifficultyRequest))
+            //{
+            //    return BadRequest(ModelState);
+            //}
 
             //convert dto to domain model
             var walkDifficultyDomain = new Models.Domain.WalkDifficulty
