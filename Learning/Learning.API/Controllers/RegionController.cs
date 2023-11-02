@@ -1,11 +1,13 @@
 ﻿using AutoMapper;
 using Learning.API.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Learning.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    
     public class RegionController : Controller
     {
         private readonly IRegionRepository regionRepository;
@@ -18,6 +20,7 @@ namespace Learning.API.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "reader")]
         public async Task<IActionResult> GetAllRegionsAsync()
         {
             var regions = await regionRepository.GetAllAsync();
@@ -48,6 +51,7 @@ namespace Learning.API.Controllers
         [HttpGet]
         [Route("{id:guid}")]
         [ActionName("GetRegionsAsync")]
+        [Authorize(Roles = "reader")]
         public async Task<IActionResult> GetRegionsAsync(Guid id)
         {
             var regions = await regionRepository.GetAsync(id);
@@ -61,6 +65,7 @@ namespace Learning.API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "writer")]
         public async Task<IActionResult> AddRegionAsync(Models.DTO.AddRegionRequest addRegionRequest)
         {
             //Validate The Request
@@ -99,6 +104,7 @@ namespace Learning.API.Controllers
 
         [HttpDelete]
         [Route("{id:guid}")]
+        [Authorize(Roles = "writer")]
         public async Task<IActionResult> DeleteRegionAsync(Guid id)
         {
             //Get region from database
@@ -127,6 +133,7 @@ namespace Learning.API.Controllers
         }
         [HttpPut]
         [Route("{id:guid}")]
+        [Authorize(Roles = "writer")]
         public async Task<IActionResult> UpdateRegionAsync([FromBody] Models.DTO.UpdateRegionRequest updateRegionRequest, [FromRoute] Guid id)
         {
             //Vaidate the incoming request
